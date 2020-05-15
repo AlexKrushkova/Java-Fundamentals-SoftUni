@@ -1,0 +1,16 @@
+import java.util.Scanner;
+
+public class CaesarCipher {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i <input.length() ; i++) {
+              char ch = (char)(((int)input.charAt(i) + 3));
+              s.append(ch);
+           }
+        System.out.println(s);
+        }
+    }
+

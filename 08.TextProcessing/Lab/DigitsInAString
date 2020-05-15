@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class DigitsInAString {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String s = scanner.nextLine();
+        StringBuilder numbers = new StringBuilder();
+        StringBuilder letters = new StringBuilder();
+        StringBuilder symbols = new StringBuilder();
+
+        for (int i = 0; i <s.length() ; i++) {
+            if (Character.isDigit(s.charAt(i))){
+                numbers.append(s.charAt(i));
+            }
+            else if (Character.isLetter(s.charAt(i))){
+                letters.append(s.charAt(i));
+            }
+            else {
+                symbols.append(s.charAt(i));
+            }
+        }
+        Integer num = Integer.parseInt(numbers.toString());
+        String lett = letters.toString();
+
+
+        System.out.println(num);
+        System.out.println(lett);
+        System.out.println(symbols);
+    }
+}

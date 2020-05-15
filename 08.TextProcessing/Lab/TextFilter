@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class TextFilter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String text = scanner.nextLine();
+        System.out.println(countOccurences(text, "the"));
+    }
+
+    static int countOccurences(String text, String word) {
+        int count = 0;
+        int latestIndex = text.indexOf(word);
+
+        while (latestIndex != -1) {
+            count++;
+            latestIndex = text.indexOf(word, latestIndex+1);
+        }
+        return  count;
+    }
+}
+

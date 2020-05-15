@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+public class StringManipulator3 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String string = "";
+        String command = scanner.nextLine();
+
+        while (!command.equals("End")){
+            String [] commandParts = command.split(" ");
+            String commandType = commandParts[0];
+            switch (commandType){
+                case"Add":
+                    String input = commandParts[1];
+                    string = string.concat(input);
+                    break;
+                case "Upgrade":
+                        String strToReplace = commandParts[1];
+                        String replacer = (char)(commandParts[1].charAt(0) + 1) + "";
+                        string = string.replace(strToReplace,replacer);
+                    break;
+                case "Print":
+                    System.out.println(string);
+                    break;
+                case "Index":
+                    char symbol = commandParts[1].charAt(0);
+                    if (string.contains(String.valueOf(symbol))) {
+                        for (int i = 0; i < string.length(); i++) {
+                            if (string.charAt(i) == symbol) {
+                                System.out.print(i + " ");
+                            }
+                        }
+                        System.out.println();
+                    }
+                    else {
+                            System.out.println("None");
+                        }
+                    break;
+                case"Remove":
+                    String inputs = commandParts[1];
+                    if (string.contains(inputs)){
+                        string = string.replace(inputs,"");
+                    }
+                    break;
+            }
+            command = scanner.nextLine();
+        }
+    }
+}

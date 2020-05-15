@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class TextFilterLAB {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] bannedWords = scanner.nextLine().split(" ");
+        String text = scanner.nextLine();
+
+        for (String bannedWord : bannedWords) {
+            while (text.contains(bannedWord)) {
+                String replacement = repeatStr("*", bannedWord.length());
+            }
+        }
+    }
+
+    private static String repeatStr(String s, int length) {
+        String replacement  = "";
+        for (int i = 0; i <length; i++) {
+            replacement+=s;
+        }
+        return replacement;
+    }
+}

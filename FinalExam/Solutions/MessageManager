@@ -1,0 +1,84 @@
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class MessageManager {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Map<String, Integer> sent = new LinkedHashMap<>();
+        Map<String, Integer> recieved = new LinkedHashMap<>();
+        int capacity = Integer.parseInt(scanner.nextLine());
+        String input = scanner.nextLine();
+        while (!input.equals("Statistics")){
+            String [] tokens = input.split("=");
+            String command = tokens[0];
+            switch (command){
+                case "Add":
+                    String name = tokens[1];
+                    if (!(sent.containsKey(name) && recieved.containsKey(name))) {
+                            int sentMessages = Integer.parseInt(tokens[2]);
+                            int recievedMessages = Integer.parseInt(tokens[3]);
+                            sent.put(name, sentMessages);
+                            recieved.put(name, recievedMessages);
+                        }
+                    break;
+                case"Message":
+                    String sender = tokens[1];
+                    String reciever = tokens[2];
+                    if (sent.containsKey(sender) && recieved.containsKey(sender) &&
+                    sent.containsKey(reciever) && recieved.containsKey(reciever)) {
+                    Integer senderMessages = sent.get(sender);
+                    Integer reciverMessages = recieved.get(reciever);
+                        sent.put(sender, senderMessages + 1);
+                        if ((sent.get(sender) + recieved.get(sender)) >= capacity) {
+                            System.out.println(String.format("%s reached the capacity!", sender));
+                            sent.remove(sender);
+                            recieved.remove(sender);
+                        }
+                        recieved.put(reciever, reciverMessages + 1);
+
+                        if ((recieved.get(reciever) + sent.get(reciever)) >= capacity) {
+                            System.out.println(String.format("%s reached the capacity!", reciever));
+                            recieved.remove(reciever);
+                            sent.remove(reciever);
+                        }
+                    }
+
+                    break;
+                case"Empty":
+                    String toDelete = tokens[1];
+                    if (toDelete.equals("All")){
+                        sent.clear();
+                        recieved.clear();
+                    }
+                    else if (sent.containsKey(toDelete) && recieved.containsKey(toDelete) ){
+                        sent.remove(toDelete);
+                        recieved.remove(toDelete);
+                    }
+                    break;
+            }
+            input = scanner.nextLine();
+        }
+        System.out.println(String.format("Users count: %d",sent.size()));
+        recieved
+                .entrySet()
+                .stream()
+                .sorted((a, b) ->{
+                    if (a.getValue() == b.getValue()){
+                       return a.getKey().compareTo(b.getKey());
+                    }
+                    else {
+                        return  b.getValue().compareTo(a.getValue());
+                    }
+                })
+                .forEach(entry -> {
+                    String name = entry.getKey();
+                    int sentMessages = sent.get(name);
+                    int recievedMess = entry.getValue();
+                    int sum = sentMessages+recievedMess;
+                    System.out.println(String.format("%s - %d", name,sum));
+                });
+    }
+}
+

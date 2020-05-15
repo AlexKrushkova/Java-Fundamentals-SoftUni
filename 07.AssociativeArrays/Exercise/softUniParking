@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class softUniParking {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        LinkedHashMap<String, String> registration = new LinkedHashMap<>();
+
+        int numsOfCommands = Integer.parseInt(scanner.nextLine());
+        for (int i = 1; i <= numsOfCommands; i++) {
+            String command = scanner.nextLine();
+            List<String> commandParts = Arrays.asList(command.split(" "));
+            String type = commandParts.get(0);
+
+
+            if (type.equals("register")) {
+                String name = commandParts.get(1);
+                String licenseNum = commandParts.get(2);
+                if (!registration.containsKey(name)) {
+                    registration.put(name, licenseNum);
+                    System.out.println(name + " registered " + licenseNum + " successfully ");
+                } else {
+                    registration.get(name);
+                    System.out.printf("ERROR: already registered with plate number %s%n", licenseNum);
+                }
+            }
+            if (type.equals("unregister")) {
+                String name = commandParts.get(1);
+                if (registration.containsKey(name)){
+                    System.out.println(name + " unregistered successfully");
+                    registration.remove(name);
+                }
+                else {
+                    System.out.printf("ERROR: user %s not found%n", name);
+                }
+            }
+        }
+        for(Map.Entry<String,String> entry : registration.entrySet()) {
+            System.out.printf("%s => %s%n", entry.getKey(),entry.getValue());
+        }
+    }
+}

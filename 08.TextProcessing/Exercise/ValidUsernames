@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class ValidUsernames {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String[] usernames = scanner.nextLine().split(", ");
+        for (String username : usernames) {
+            if (validation(username)) {
+                System.out.println(username);
+            }
+        }
+    }
+    static boolean validation(String s) {
+        boolean hasValidLenght = isHasValidLenght(s);
+        boolean isAllowedChar = true;
+        for (int i = 0; i <s.length() ; i++) {
+            char symbol = s.charAt(i);
+            if (!Character.isLetterOrDigit(symbol) && (symbol!= '-') && (symbol != '_')) {
+                isAllowedChar =  false;
+            }
+        }
+        return  hasValidLenght && isAllowedChar;
+    }
+    static boolean isHasValidLenght(String s) {
+        int length = s.length();
+        return length >= 3 && length <= 16;
+    }
+}
+

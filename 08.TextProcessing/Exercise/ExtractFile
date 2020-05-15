@@ -1,0 +1,14 @@
+import java.util.Scanner;
+
+public class ExtractFile {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        String fileName = input.substring(input.lastIndexOf('\\')+ 1, input.indexOf("."));
+                String fileExtention = input.substring(input.lastIndexOf(".") +1);
+
+        System.out.printf("File name: %s%n" +
+                "File extension: %s", fileName,fileExtention);
+    }
+}
